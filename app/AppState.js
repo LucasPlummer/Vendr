@@ -1,12 +1,32 @@
+import { Snack } from "./Models/Snack.js"
 import { Value } from "./Models/Value.js"
 import { EventEmitter } from "./Utils/EventEmitter.js"
 import { isValidProp } from "./Utils/isValidProp.js"
 import { loadState } from "./Utils/Store.js"
+import { setText } from "./Utils/Writer.js"
 
 class AppState extends EventEmitter {
   /** @type {import('./Models/Value').Value[]} */
   values = loadState('values', [Value])
+
+  snacks = [
+    new Snack("Doritos", 3.75),
+    new Snack("Flaming Hot Mtn Dew", 5.00)]
+
+  money = 0
 }
+
+function addMoney() {
+  moneyService.addMoney()
+}
+
+function drawMoney() {
+  setText('money', appState.money)
+}
+
+
+
+
 
 export const appState = new Proxy(new AppState(), {
   get(target, prop) {
